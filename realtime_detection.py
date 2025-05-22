@@ -34,7 +34,7 @@ def classify_packet(packet):
         log_entry = f"[{datetime.now()}] {packet.summary()} => {label}\n"
         print(log_entry.strip())
 
-        log_file = f'./logs/packet_log_{datetime.today()}.txt'
+        log_file = f'./logs/packet_log_{datetime.today().strftime("%Y-%m-%d")}.txt'
         with open(log_file, "a") as log_file:
             log_file.write(log_entry)
 
@@ -53,7 +53,7 @@ def extract_features(packet):
         num_root = 0
         
         # browser info
-        browser = 'unknown'
+        browser = 2
         # if packet.haslayer('Raw'):
         #     payload = packet['Raw'].load
         #     if b"User-Agent" in payload:
