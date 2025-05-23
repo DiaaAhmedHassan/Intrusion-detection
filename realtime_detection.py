@@ -3,25 +3,13 @@ import torch.nn as nn
 from scapy.all import sniff
 from datetime import datetime
 
-class IntrusionModel(nn.Module):
-    def __init__(self):
-        super(IntrusionModel, self).__init__()
-        self.network = nn.Sequential(
-            nn.Linear(13, 64),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(64, 32),
-            nn.ReLU(),
-            nn.Linear(32, 1),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        return self.network(x)
+import sys
+sys.dont_write_bytecode = True
+from model import IntrusionDetector
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-model = IntrusionModel()
+model = IntrusionDetector()
 model.load_state_dict(torch.load("./save/intrusion_model_weights.pth", map_location=device))
 model.eval()
 
